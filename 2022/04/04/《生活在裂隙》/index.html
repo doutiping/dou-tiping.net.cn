@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="域清">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2022/04/04/《生活在裂隙》/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《生活在裂隙》">
+<meta property="og:url" content="http://example.com/2022/04/04/%E3%80%8A%E7%94%9F%E6%B4%BB%E5%9C%A8%E8%A3%82%E9%9A%99%E3%80%8B/index.html">
+<meta property="og:site_name" content="Dou tiping.net.cn">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2022-04-04T11:25:00.000Z">
+<meta property="article:modified_time" content="2025-11-13T10:15:49.235Z">
+<meta property="article:author" content="域清">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/%E7%BD%91%E5%9D%80logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/%E7%BD%91%E5%9D%80logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/%E7%BD%91%E5%9D%80logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            《生活在裂隙》 | dou-tiping&#39;s blog
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":false,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":false,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":false},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"static","image":{"light":"/images/1.jpg","dark":"/images/1.jpg"},"title":"dou-tiping's blog","subtitle":{"text":["This is the first message","This is the second message","etc"],"hitokoto":{"enable":true,"show_author":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":2},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-regular fa-user","submenus":{"百年后的你，25岁":"/categories/百年后的你，25岁/","碎萃":"/categories/碎萃/","读书等身":"/categories/读书等身/"}},"关于":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"按自己的意愿过好一生.","show_on_mobile":true,"links":{"时间轴":{"path":"/archives","icon":"fa-regular fa-archive"},"标签":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":50,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        dou-tiping&#39;s blog
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/%E9%80%8F%E6%98%8E%E5%BA%95logo.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                dou-tiping&#39;s blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    分类
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/">
+                                                    百年后的你，25岁
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/%E7%A2%8E%E8%90%83/">
+                                                    碎萃
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">
+                                                    读书等身
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    关于
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-分类"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-分类">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/">百年后的你，25岁</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E7%A2%8E%E8%90%83/">碎萃</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">读书等身</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/archives"
+                        >
+                            <span>时间轴</span>
+                            <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>标签</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">24</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="/images/%E7%94%9F%E6%B4%BB%E5%9C%A8%E8%A3%82%E9%9A%99.png" alt="《生活在裂隙》" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">《生活在裂隙》</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/%E4%BD%9C%E8%80%85%E5%9B%BE.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">域清</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2022-04-04 19:25</span>
+        <span class="mobile">2022-04-04 19:25</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-11-13 18:15:49</span>
+            <span class="mobile">2025-11-13 18:15:49</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">读书等身</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="《生活在裂隙》"><a href="#《生活在裂隙》" class="headerlink" title="《生活在裂隙》"></a>《生活在裂隙》</h1><p>–<strong>立雯</strong> </p>
+<h4 id=""><a href="#" class="headerlink" title="&lt;自序&gt;"></a>&lt;自序&gt;</h4><p>人保持反省有多重要——它能让你剥离掉宏观情绪，观望微小的自己的异动与极端，认清自我的盲点，收缩个人的自我。</p>
+<p>对我而言，生活之理性便是要去找到指引自己人生方向的一以贯之的逻辑与准则，而这个方向的终途便是一种宁静、和谐、应合自我的人生。这本书便是我在开启这场“寻找”后的点点滴滴的记录。</p>
+<p>很多人在人生的某个节点都会自问——人生的意义是什么呢？如果是两三年前，我大概要谈谈存在先于本质，人是目的、而非手段……也大概会陷于虚无主义的自问里……书里其实也有不少相关论述。经历过疫情洗礼后，我反而更深刻意识到，家人才是我唯一牵挂的人生重心，而那些我曾不屑的家长里短、琐碎日常方才是人活一辈子的主轴。</p>
+<p>人的注意力往往不会放置在顺意的生活日常，却会沉浸于那些得不到、不顺心的幽怨伤情里，这无疑放大了人存在的“痛感”，让人感觉处处皆“裂隙”，无处是心安。其实，引用莱奥纳德·科恩的句子，“万物皆有裂隙，那是光照进来的地方”。人一路所遇裂隙亦能是滋养，只要你有足够的弹性与敏慧，只要你愿反思修行。</p>
+<h4 id="-1"><a href="#-1" class="headerlink" title="&lt;人的动物性与植物性&gt;"></a>&lt;人的动物性与植物性&gt;</h4><p>正如尼采所述：“人和树一样，他愈求升到高处和光明，他的根就愈往下扎，向黑暗，向深处，——向罪恶。”</p>
+<h4 id="-2"><a href="#-2" class="headerlink" title="&lt;如何成为智慧之人&gt;"></a>&lt;如何成为智慧之人&gt;</h4><p>未经省察的人生没有价值.</p>
+<p>新构建的价值体系反给人带来一种稳定与使命感。这就如同当你理解了黑暗才是夜晚更明确的存在，你才真正意识到了星星的光亮。</p>
+<h4 id="-3"><a href="#-3" class="headerlink" title="&lt;无用之学之有用&gt;"></a>&lt;无用之学之有用&gt;</h4><p>人心是有趋同性的。</p>
+<p>当人对自己与同类缺乏认识时，人是无法超越自己的，只有当我们看见自己，才能创造出一个比我们更高的自己。</p>
+<p>哲学的魅力就在于让你站到自己的生命之上。</p>
+<h4 id="-4"><a href="#-4" class="headerlink" title="&lt;“逆来顺受”的智慧&gt;"></a>&lt;“逆来顺受”的智慧&gt;</h4><p>遭遇本身实在不值一提，它是每个人生活的构成，尤其当你回头看，人事远去，不再心有余波，留下的都是经历与反省。事实上，智慧便是从种种遭遇中提炼总结得到的，遭遇是人活一世修行的必须。</p>
+<p>如果你不敢接受这种不确定性，就会整日害怕担忧。而当你让自己全然接受所有不确定，那一刻，你便会获得心灵上的纾解，你才会走出情绪漩涡，转向行动面对。</p>
+<p>当人专注于做手上的事，不被纷乱的思绪绑架时，即是“活在当下”的禅道。</p>
+<p>遭遇困难时，不要沉迷痛感，不要过度思虑，专注做事——日常家务、工作琐事、写作阅读等——才是缓解痛苦的有效方式。</p>
+<h4 id="-5"><a href="#-5" class="headerlink" title="&lt;当下的力量与幸福感&gt;"></a>&lt;当下的力量与幸福感&gt;</h4><p>我们的痛苦无一不来自于脑中纷乱的思绪，而我们的思绪（ mind ） ，或者说执念，无时无刻不在被我们的自我（ego）所控。只有当我们撇除自我（ego）控制下的思绪，全身心关注当下，才能获得充盈的安宁与平和。</p>
+<p>“自我”并非本真的自我，而是过去的经历、家庭的遭遇及社会大环境所共同塑造的一个充满偏见与欲念的“假我”。这个“假我”牵制着我们不断陷入对过去的“过分”解读和对未来的“过度”想象，从而造成了我们的担忧与痛苦。</p>
+<p>卢梭在《一个孤独的散步者的梦》里就有关于“当下”的描述：“如果世间真有这么一种状态：心灵十分充实和宁静，既不怀恋过去也不奢望将来，放任光阴的流逝而紧紧掌握现在……只要这种状态继续存在，处于这种状态的人就可以说自己得到了幸福……”</p>
+<p>真正的幸福是一种平稳的忘我的存在，它是中性的，它彻底融进了此刻，成了“当下”的一部分。</p>
+<h4 id="-6"><a href="#-6" class="headerlink" title="&lt;欲望的万有引力&gt;"></a>&lt;欲望的万有引力&gt;</h4><p>无论处在哪个阶段、占有多少财富、位于哪个阶层、来自何种背景、经受着何种遭遇，人所面对的痛苦本质都相同，都是围绕欲望之未达——事成之未达、爱人之未达、名利之未达……</p>
+<h4 id="-7"><a href="#-7" class="headerlink" title="&lt;快乐的本质&gt;"></a>&lt;快乐的本质&gt;</h4><p>在任何环境中，自我感觉的个体的优与差都取决于你相对于别人的位置，同类比较总会给人带来不断的压力。这就是为什么无论你取得多少成绩和财富，你感受到的快乐总是稍纵即逝，因为你的比较级也在随着周围环境的提高而提升。</p>
+<p>第二个原因，在丹·艾瑞里的《非理性的积极力量》里有细致描述，即因为人有适应性。伴随时间流逝，人终归会适应一切状况，也终归会对已经拥有的漠视不见。无论是快乐还是痛苦，人的适应性都极强。在时间这条轴上，所有偏离正轨的心理和情绪最终都会被拉回平衡值，这点我们不需要怀疑。</p>
+<p>换句话说，人的幸福并不会随着自身财富地位的上升而获得提升。太多人执着于对身外之物的上下求索，以为那会成为快乐之源，而事实上，快乐真的与物质无关——在过了那条基准线之后。</p>
+<p>真正成熟理智之人，不应执拗于追求快乐，而是应守住自己平稳的内心，最后到达宠辱不惊、去留无意、云淡风轻之境。</p>
+<h4 id="-8"><a href="#-8" class="headerlink" title="&lt;苦难的底色&gt;"></a>&lt;苦难的底色&gt;</h4><p>在波士顿飞往北京的航班上，我重新看了一遍《少年派的奇幻漂流》。人之一生，正如派(电影主角)之于海上，那种未知与宿命并存的悲凉，让活着带有一种不自知的英雄主义。</p>
+<p>人活着的基石正是苦难，而非快乐。人身心的构造，不会对顺意有所感知，却会敏感于一丁点的痛苦。苦难才让我们保持活着的警觉，而摆脱苦难——哪怕只是一瞬——才使我们有目标感。</p>
+<h4 id="-9"><a href="#-9" class="headerlink" title="&lt;放下方得解脱&gt;"></a>&lt;放下方得解脱&gt;</h4><p>她说：“女儿出生即如此，对她自己而言，她其实并不知道所谓的‘正常’是什么，而我却一直在用我的‘偏见’看待自己的女儿……当我彻底接受了她之为她，接受了她的病患，接受了她的所有，我突然就释然了。</p>
+<p>“不接受”表明你还在跟过去的遗留、牢固的执念搏斗，说明你还活在过去的延续中。只有“接受”，你才能真正跟过去挥手告别，才能迈出内心转变的那一步，走上新的征程。</p>
+<h4 id="-10"><a href="#-10" class="headerlink" title="&lt;大多数人是如何平庸化的&gt;"></a>&lt;大多数人是如何平庸化的&gt;</h4><p>审视过自己的热爱。</p>
+<p>我怀疑，众人的平庸化都是因为错位造成的。这种错位本质上还是源于大多数人根本不了解自己。</p>
+<p>亚里士多德认为，人的根本幸福在于无拘束地施展人的突出才能。他说：“能够不受阻碍地培养、发挥一个人的突出才能，不管这种才能是什么，是为真正的幸福。”</p>
+<h4 id="-11"><a href="#-11" class="headerlink" title="&lt;爱好也是解药&gt;"></a>&lt;爱好也是解药&gt;</h4><p>我的观察是，二十多岁的年轻人大多是不知所好，三四十岁往上则兼而有之，不过，人到中年，养家的压力还是首当其冲。能够在年纪轻轻便认定并专注喜好的终归是少数幸运儿。</p>
+<p>我想，如果剔除了生活中的这些爱好，我将会很难疏通自己过密的情绪与琐思。</p>
+<h4 id="-12"><a href="#-12" class="headerlink" title="&lt;克服油腻的惯性&gt;"></a>&lt;克服油腻的惯性&gt;</h4><p>清趣，即一种清新的情趣。清新呈现的是生命力的流动，情趣则会让人在生活之上开花。</p>
+<p>清新的人身上涌动着活力，无论活在何种阶段、受制于何种局限，他们总是对人与事充满正向的好奇，积极开拓人生的边界。这种清新的活力是极具感染力的，周围人都能感到这种能量的照明。情趣可以是思想上的幽默智趣，也可以是把日子过得充盈丰满。总之，清新的人不满足于日复一日的机械回归，随时都以极大的热情将自己投掷入生命的创意里，他们诠释着所谓的“每一个不曾起舞的日子，都是对生命的辜负”。</p>
+<h4 id="-13"><a href="#-13" class="headerlink" title="&lt;人以群分&gt;"></a>&lt;人以群分&gt;</h4><p>那些身上自带稳定与秩序感的人是最吸引我的。纷乱的世界与他们无关，他们有稳定的日常、稳定的爱好、稳定的阅读与稳定的价值观。他们有内生的锚，与外在无关。</p>
+<p>必然趋近那些与自己相似的人，类同的轨迹是两个人交心的基础。遇到喜欢同一本书、同一部剧、同一个作者的人，比遇到同乡与同校的人还让人欣慰。这些文本背后是宏大的人生观、美学、道德、情理、逻辑甚至经历。</p>
+<p>大部分人所谓的“朋友”只是利益交换者，精神与行为达成默契的挚友无论何时都稀缺。</p>
+<p>“一个人拥有的越多，被拥有的也越多”。</p>
+<p>在一个时期，能与一个人达成精神上对等的深交，已属不易；若过了很久，你们依然能对谈如旧，那是知音难得。</p>
+<h4 id="-14"><a href="#-14" class="headerlink" title="&lt;自由即自律&gt;"></a>&lt;自由即自律&gt;</h4><p>日常规律其实保证了生活的可预期性，而可预期性会赋予人精神上的松弛与稳和。</p>
+<p>最卓越的自由是能不依附于他人设置的目的，自我构建人生意义、建立计划并依律往前 。</p>
+<h4 id="-15"><a href="#-15" class="headerlink" title="&lt;自足的智慧&gt;"></a>&lt;自足的智慧&gt;</h4><p>人生的智慧就在于自觉限制对于外物的需要，过一种简朴的生活，以便不为物役，保持精神的自由”。</p>
+<p>常常提醒自己已拥有的美好——“春有百花秋有月，夏有凉风冬有雪。”</p>
+<h4 id="-16"><a href="#-16" class="headerlink" title="&lt;用回忆证明来过这世界&gt;"></a>&lt;用回忆证明来过这世界&gt;</h4><p>回忆是一种再创造，我们把过去的时光撕碎得像雪花一样，再堆积成雪人。这其中会有自圆其说的拼凑，毕竟人的回忆都是偏向自己的失真。</p>
+<h4 id="-17"><a href="#-17" class="headerlink" title="&lt;衰老的亮度&gt;"></a>&lt;衰老的亮度&gt;</h4><p>这个时代的急促让人迫不及待想在而立之前有所建树，似乎到了30岁还无所作为的话，生命就注定要荒芜下去了。</p>
+<h4 id="-18"><a href="#-18" class="headerlink" title="&lt;遗忘的时代&gt;"></a>&lt;遗忘的时代&gt;</h4><p>我们在获得信息的广阔与速度时，必然失去了消化咀嚼信息的从容与深度。</p>
+<h4 id="-19"><a href="#-19" class="headerlink" title="&lt;生活的箴言&gt;"></a>&lt;生活的箴言&gt;</h4><p>人生是个不断减少不确定的过程：年轻人因生活的变量而勃发；年老者因生活的定量而安宁。要让精神先于肉体衰老，才能更坦然面对肉体衰老；要让智慧对得起皱纹。</p>
+<p>路途比终点生动，经历比得到值得。</p>
+<p>有句话我一直印象很深：“人无法用相同的自己，得到不同的未来。”</p>
+<h4 id="-20"><a href="#-20" class="headerlink" title="&lt;固态与液态时代&gt;"></a>&lt;固态与液态时代&gt;</h4><p>“从前的日色变得慢。车，马，邮件都慢。一生只够爱一个人。”那种简简单单、没有别的选择的既定与认命，在过去被迫的无奈，在今天却成了缺失的遗憾。</p>
+<h4 id="-21"><a href="#-21" class="headerlink" title="&lt;真诚是稀缺品&gt;"></a>&lt;真诚是稀缺品&gt;</h4><p>一次对话的质量取决于两个人真诚的交付。这种对话注定是稀缺的。</p>
+<h4 id="-22"><a href="#-22" class="headerlink" title="&lt;伴侣何如，你便如何&gt;"></a>&lt;伴侣何如，你便如何&gt;</h4><p>一个人周边的圈子，总在或多或少影响你，从你选择交往的人身上看到你的品性与兴趣，从你拒绝结交的人身上看到你的原则与立场。</p>
+<h4 id="-23"><a href="#-23" class="headerlink" title="&lt;一个人远行&gt;"></a>&lt;一个人远行&gt;</h4><p>人只有在看清自己个性上的“残缺”后，才会去投奔“完美”，而人很少能在亲情关系里照见客观的自己，所以，我们的远行都是为了获得另一种照明。</p>
+<p>人也只有脱离了父母的“庇护”才真正开始了自我的修行，修行是“补给伴随着脱落”的历程。只有跟他人碰撞，人才能得到观照，获得补给的灵感，而每一种补给又意味着其原有负面的脱落。</p>
+<h4 id="-24"><a href="#-24" class="headerlink" title="&lt;不必见&gt;"></a>&lt;不必见&gt;</h4><p>有些人，不必见。当你未准备好时，见是一种失。好的遇见是两个人的共筑，你来我往的撞击，需要相近的高度。保存一种距离其实是更好的对望。世间美景都是在丧失距离后失去的，景、物、人，都如此。</p>
+<p>当然，还是要感谢那些值得仰望的人，人在仰望里能看到自己的方向。</p>
+<h4 id="-25"><a href="#-25" class="headerlink" title="&lt;美貌从不是人生的捷径&gt;"></a>&lt;美貌从不是人生的捷径&gt;</h4><p>人对自己人生的掌控力越强，越能保持充沛的探索与追求（无论是向外还是向内），并以此激励自我的爬升进阶，越能接近人生整体的圆满充实感。</p>
+<h4 id="-26"><a href="#-26" class="headerlink" title="&lt;阅读是每个人纯粹的精神陪伴&gt;"></a>&lt;阅读是每个人纯粹的精神陪伴&gt;</h4><p>“周国平说过，读那些永恒的书，做一个纯粹的人。”</p>
+<h4 id="-27"><a href="#-27" class="headerlink" title="&lt;影像里的人生&gt;"></a>&lt;影像里的人生&gt;</h4><p>对每个人而言，这一生的未辜负，都在用心体验自然的壮美，生活的起伏，痛的深邃，爱的治愈，与思想的渐进。我们来过，看过，爱过，经历过，思考过，创造过，一生足矣。</p>
+<h4 id="-28"><a href="#-28" class="headerlink" title="&lt;走过一些城，留住一些剪影&gt;"></a>&lt;走过一些城，留住一些剪影&gt;</h4><p>“还是要多旅行，为了看到另一个角度的生命。”</p>
+<h4 id="-29"><a href="#-29" class="headerlink" title="&lt;生活的乐趣在于人的意外&gt;"></a>&lt;生活的乐趣在于人的意外&gt;</h4><p>“人都是‘两栖’动物，表面内敛的人往往有最狂野的内心”</p>
+<h4 id="-30"><a href="#-30" class="headerlink" title="&lt;旅美十年后的感悟&gt;"></a>&lt;旅美十年后的感悟&gt;</h4><p>卢梭说：“如果世间真有这么一种状态：心灵十分充实和宁静，既不怀恋过去也不奢望将来，放任光阴的流逝而紧紧掌握现在，不论它持续的长短都不留下前后接续的痕迹，无匮乏之感也无享受之感，不快乐也不忧愁，既无所求也无所惧，而只感受到自己的存在……处于这种状态的人就可以说自己得到了幸福……”</p>
+<h4 id="-31"><a href="#-31" class="headerlink" title="&lt;内向与外向&gt;"></a>&lt;内向与外向&gt;</h4><p>我现在越来越觉得，一个人最终能活成什么样子取决于能否认清自己，在此基础上再为自己争取一种更进阶的匹配。</p>
+<h4 id="-32"><a href="#-32" class="headerlink" title="&lt;清淡的苦行&gt;"></a>&lt;清淡的苦行&gt;</h4><p>我希望保持一种活着的纯粹，由内而外的，不被杂质消损内心的平衡。我开始习惯于一种苦行僧般的生活，为的是精神上的乐行。只有精神上的盈悦才是真实持久的，其余皆空。</p>
+<h4 id="-33"><a href="#-33" class="headerlink" title="&lt;人都是“两栖”动物&gt;"></a>&lt;人都是“两栖”动物&gt;</h4><p>不过，人都是“两栖”动物，表面内敛的人往往有最狂野的内心。很多人都意识到自己个性的多面，跟熟人与生人相处的面貌与模式截然不同。事实上，没有人只有一副面貌，人都是多层次的，与人的相处——根据对方的不同——会呈现出或浅或深、或假或真的底色。人的“两栖”也是因为人自己都会厌倦自己的一成不变。我每隔一段就想要摆脱自己貌似文静的样子。我会去听Coldplay，去看Blue Man（《蓝人秀》），看战争大片，听音乐要把音量开到最大，全身心热爱电闪雷鸣的暴雨……</p>
+<p>想来，内心孤独的人依旧希望与世界的宏大发生共振，无论是千人摇滚，战争大片的撕裂，音乐的律动，大自然的呐喊……都是微渺与宽宏的连接，会给人瞬时的能量充电。所以，不要设定人的不变。每个沉稳背后都有野性，每个正经背后都有放肆，每个乐观背后都有悲恸。</p>
+<p>每个人都会有让人意外的“两栖”。</p>
+<h4 id="-34"><a href="#-34" class="headerlink" title="&lt;忆对我影响至深的老板&gt;"></a>&lt;忆对我影响至深的老板&gt;</h4><p>很多时候，人与人的初见便决定了之后的际遇。人跟人的缘分，简单得可怕，也复杂得可畏。</p>
+<p>我们遇见、擦肩一些人，这些人中大部分对我们毫无影响，而有那么几个，在遇见之后让我们成为更好的人，这些人就值得被记住，值得被感激。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2022/04/17/%E4%BD%B0/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">佰</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2022/04/02/%E3%80%8A%E5%9F%BA%E7%9D%A3%E5%B1%B1%E4%BC%AF%E7%88%B5%E3%80%8B/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">《基督山伯爵》</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">《生活在裂隙》</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E3%80%8A%E7%94%9F%E6%B4%BB%E5%9C%A8%E8%A3%82%E9%9A%99%E3%80%8B"><span class="nav-text">《生活在裂隙》</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">域清</a>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+    
+<script src="/js/build/libs/pangu.min.js"></script>
+
+<script src="/js/build/plugins/pangu.js"></script>
+
+
+
+
+	
+</body>
+
+</html>
