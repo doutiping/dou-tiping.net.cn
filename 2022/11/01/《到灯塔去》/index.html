@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="域清">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2022/11/01/《到灯塔去》/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《到灯塔去》">
+<meta property="og:url" content="http://example.com/2022/11/01/%E3%80%8A%E5%88%B0%E7%81%AF%E5%A1%94%E5%8E%BB%E3%80%8B/index.html">
+<meta property="og:site_name" content="Dou tiping.net.cn">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2022-10-31T16:05:26.000Z">
+<meta property="article:modified_time" content="2025-11-17T16:09:30.061Z">
+<meta property="article:author" content="域清">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/%E7%BD%91%E5%9D%80logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/%E7%BD%91%E5%9D%80logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/%E7%BD%91%E5%9D%80logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            《到灯塔去》 | dou-tiping&#39;s blog
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":false,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":false},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"static","image":{"light":"/images/1.jpg","dark":"/images/1.jpg"},"title":"dou-tiping's blog","subtitle":{"text":["This is the first message","This is the second message","etc"],"hitokoto":{"enable":true,"show_author":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":2},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-layer-group","submenus":{"百年后的你，25岁":"/categories/百年后的你，25岁/","碎萃":"/categories/碎萃/","读书等身":"/categories/读书等身/"}},"过往":{"icon":"fa-solid fa-layer-group","submenus":{"PAP-军旅":"/categories/PAP-军旅/","BISTU-北信":"/categories/BISTU-北信/"}},"介绍":{"path":"/about","icon":"fa-regular fa-user"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"按自己的意愿过好一生.","show_on_mobile":true,"links":{"时间轴":{"path":"/archives","icon":"fa-solid fa-route"},"百年后的你，25岁":{"path":"/categories/百年后的你，25岁/","icon":"fa-solid fa-earth-europe"},"碎萃":{"path":"/categories/碎萃/","icon":"fa-solid fa-seedling"},"读书等身":{"path":"/categories/读书等身/","icon":"fa-solid fa-book-open"},"PAP-军旅":{"path":"/categories/PAP-军旅/","icon":"fa-solid fa-person-rifle"},"BISTU-北信":{"path":"/categories/BISTU-北信/","icon":"fa-solid fa-universal-access"}}},"article_date_format":"auto","excerpt_length":50,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        dou-tiping&#39;s blog
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/%E9%80%8F%E6%98%8E%E5%BA%95logo.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                dou-tiping&#39;s blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-layer-group fa-fw"></i>
+                                    分类
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/">
+                                                    百年后的你，25岁
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/%E7%A2%8E%E8%90%83/">
+                                                    碎萃
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">
+                                                    读书等身
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-layer-group fa-fw"></i>
+                                    过往
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/categories/PAP-%E5%86%9B%E6%97%85/">
+                                                    PAP-军旅
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/BISTU-%E5%8C%97%E4%BF%A1/">
+                                                    BISTU-北信
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    介绍
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-分类"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-分类">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/">百年后的你，25岁</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E7%A2%8E%E8%90%83/">碎萃</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">读书等身</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-过往"
+                        >
+                            <span>
+                                过往
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-过往">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/PAP-%E5%86%9B%E6%97%85/">PAP-军旅</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/BISTU-%E5%8C%97%E4%BF%A1/">BISTU-北信</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                介绍
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/archives"
+                        >
+                            <span>时间轴</span>
+                            <i class="fa-solid fa-route fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/"
+                        >
+                            <span>百年后的你，25岁</span>
+                            <i class="fa-solid fa-earth-europe fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/%E7%A2%8E%E8%90%83/"
+                        >
+                            <span>碎萃</span>
+                            <i class="fa-solid fa-seedling fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/"
+                        >
+                            <span>读书等身</span>
+                            <i class="fa-solid fa-book-open fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/PAP-%E5%86%9B%E6%97%85/"
+                        >
+                            <span>PAP-军旅</span>
+                            <i class="fa-solid fa-person-rifle fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/BISTU-%E5%8C%97%E4%BF%A1/"
+                        >
+                            <span>BISTU-北信</span>
+                            <i class="fa-solid fa-universal-access fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">52</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">《到灯塔去》</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/%E4%BD%9C%E8%80%85%E5%9B%BE.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">域清</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2022-11-01 00:05:26</span>
+        <span class="mobile">2022-11-01 00:05:26</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-11-18 00:09:30</span>
+            <span class="mobile">2025-11-18 00:09:30</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">读书等身</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.8k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>19 Mins</span>
+        </span>
+    
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="【英】弗吉尼亚·伍尔夫"><a href="#【英】弗吉尼亚·伍尔夫" class="headerlink" title="【英】弗吉尼亚·伍尔夫"></a>【英】弗吉尼亚·伍尔夫</h2><h3 id="第一部-窗"><a href="#第一部-窗" class="headerlink" title="第一部 窗"></a>第一部 窗</h3><p>在我们过去和未来的生活里， 充满着郁郁葱葱的树木， 和不断更新的树叶。</p>
+<p>好像仍是冬天， 你已飘然而去， 我与这些幻影一块儿嬉戏， 犹如我和你的倩影一起徘徊。</p>
+<p>对于这种人来说，甚至在幼年时期，感觉的每一次变化转折，都有力量去把那情绪消沉或容光焕发的瞬间结晶固定下来。</p>
+<p>一个人所需要的最重要的品质，是勇气、真实、毅力。</p>
+<p>有一种异乎寻常的感情，在这次散步过程中不断地发展着；当他在花园里要替拉姆齐夫人拿手提包的时候，这感情就开始萌发了；在城里，当他想把自己的一切都告诉她的时候，这感情已经增强了；在这异常的感情影响之下，他看到自己的形象和他向来熟悉的一切事物，都有点扭曲变形了。这可是太奇怪了。</p>
+<p>过了一秒钟，她就从那种神经紧张的状态中解脱出来，好像为了补偿她刚才那种不必要的感情损耗，她走向了另一个极端。</p>
+<p>这就是她经常的感觉——她得和概念与现实之间的可怕差距抗争，来保持她的勇气，并且说，“这就是我所见到的景象；这就是我所见到的景象，”借此抓住她的视觉印象的一些可怜的残余，把它揣在胸前，而有成百上千种力量，要竭力把这一点儿残余印象也从她那儿夺走。</p>
+<p>望着远处的沙丘，威廉·班克斯想起了拉姆齐：想起了在威斯特摩兰的一条小径，想起了拉姆齐，带着那种似乎是他的本色的寂寞孤僻，独自一人沿着那条道路踯躅。他的散步突然被打断了，威廉·班克斯回想起来（这肯定是由于某种确实发生过的意外事件），被一只伸出翅膀来保护一窝鸡雏的老母鸡打断了。拉姆齐停下脚步，用手杖指着老母鸡说“漂亮——漂亮”，一束奇异的光照进了他的心窝。班克斯想道，那表明他性情质朴，同情弱者，但是，他好像觉得，也就是在那条岔道上，就在那儿，他们的友谊中断了。在那以后，拉姆齐结了婚。后来出于某种原因，他们的友谊的核心消失了。他说不出这究竟是谁的过错，只是，过了一阵，重叙友情代替了另结新欢。正是为了叙旧，他们又重逢了。</p>
+<p>他们之间的友谊早已开始，在威斯特摩兰的一条岔道上，当那只母鸡卵翼它的小鸡之时，他们的友谊枯竭了；此后拉姆齐结了婚，于是他们就分道扬镳，当然，谁也没有过错，只是存在着某种趋势，当他们重逢之时，仍有这种貌合神离的趋势。</p>
+<p>他们的确给了他一些乐趣。但是，他的老友们不会不感觉到，他们也毁坏了一些东西。</p>
+<p>突然间，好像他一挥手就把她的感情释放了出来，她对他的印象已经积累了一大堆，现在她对他的全部感受，像沉重的雪崩一般倾泻出来。那是一种激动的情绪。然后，在一阵烟雾之中，升起了他存在的实质。那是另一种感觉。她被自己强烈的感受惊愕得发呆了；那是他的严峻，他的善良所激起的感觉。</p>
+<p>买了好椅子，让它们整个冬天放在这儿湿淋淋地烂掉，又有什么好处。</p>
+<p>或者，如果你仅仅把她当作一个女人来看待，你就会赋予她一些奇特的怪癖——她不喜欢被人倾慕——或者她有某种潜在的愿望，要抛弃她优雅高贵的仪表，好像美貌和所有男子们对美貌的赞扬都叫她厌烦，而她别无所求，但愿能和其他人一样，平平常常。他不知道</p>
+<p>他方才跃马穿越死亡的幽谷，却被人惊破了美梦。</p>
+<p>如此令人吃惊地丝毫不顾别人的感情而去追求真实，如此任性、如此粗暴地扯下薄薄的文明的面纱，对她说来，是对于人类礼仪的可怕的蹂躏。</p>
+<hr>
+<p>既不盲目乐观，又不悲观失望，能够沉着镇定地观察未来，正视现实。</p>
+<p>用生命来充实。</p>
+<p>这就是他的命运，他独特的命运，不管它是否符合他的愿望：他就这样来到了一小片正在被海水缓慢地侵蚀的土地，站在那儿，像一只孤独的海鸟，形单影只。这就是他的力量，他的天赋——他突然间把过剩的才华全部扬弃，收敛起幻想、降低了声调，使他的外表更为直率、简朴，甚至在肉体上也是如此，但他并未丧失思想的敏锐，就这样，他站在那片小小的悬崖上，面对着人类的愚昧和黑暗：海水在侵蚀、冲垮我们脚下的那片土地，而我们对此却毫无知觉——这就是他的命运，他的天赋。</p>
+<p>当他下马之时，他已经抛弃了一切浮夸的态度和姿势，丢掉了所有的核桃和玫瑰之类纪念品，他奔放的想象力收敛了，以至于他不仅把他的声誉，甚至把自己的姓名也抛到九霄云外，即使在那样孤寂的状态之中，他仍旧保持着一种不放纵幻想和不沉溺于幻景的警惕性，就是这种求实的姿态。</p>
+<p>他为什么必须如此矫揉造作地掩饰？为什么他老是需要别人捧他？为什么他在思想的领域中如此勇敢，而在生活的领域中如此懦弱？他既可敬又可笑，多么令人惊奇！</p>
+<p>当她看到拉姆齐先生逼近过来又退了回去，看见拉姆齐夫人和詹姆斯坐在窗内，看见白云在空中浮动，树枝在风中摇曳，她想到了生活是如何由彼此相邻而各自独立的小事组合而成，凝聚为一个完整、起伏的波涛，而人就随着这波涛翻腾起伏，在那儿，一下子冲刷到海滩上。</p>
+<p>她想，（一面假装去挪动她的油画布）这就是经过蒸馏和过滤不含杂质的爱情；一种不企图占有对方的爱情；就像数学家爱他们的符号和诗人爱他们的诗句一样，意味着把它们传遍全世界，使之成为人类共同财富的一部分。</p>
+<p>当这悠然神往的状态还在延续之时，你决不会去扰乱它，正如你不会去遮断透过窗户横洒到地板上的一道阳光。</p>
+<p>如果每个人都是如此密不透风，你怎么会对别人有所了解呢？你只能像蜜蜂那样，被空气中捉摸不住、难以品味的甜蜜或剧烈的香气所吸引，经常出没于那圆丘形的蜂巢之间。</p>
+<p>在这纷繁复杂的思绪中，似乎暗藏着什么刺人的荆棘。</p>
+<p>他们现在比将来任何时候都要更加幸福。</p>
+<p>她向生活瞥了一眼，因为她清晰地意识到它的存在，某种真实的、纯粹属于个人的东西，她既不和子女又不和丈夫分享的东西。他们之间一直在互相较量，她处于一方，生活处于另一方，而她总是尽可能地去战胜对方，就像对方要战胜她一样；有时候，他们之间也展开谈判（当她一个人独自坐着的时候）；她记得也有妥协和解的场面；但说来也真怪，就大体而论，她必须承认，生活是可怕的、充满敌意的，它会迅速地向你猛扑过来，如果你让它有机可乘的话。还有那些永远存在的问题：苦难、死亡、贫困。</p>
+<hr>
+<p>当生命沉淀到心灵深处的瞬间，经验的领域似乎是广袤无垠的。她猜想，对每个人来说，总是存在着这种无限丰富的内心感觉；人人都是如此，她自己，莉丽，奥古斯都，卡迈克尔，都必定会感觉到：我们的幻影，这个你们借以认识我们的外表，简直是幼稚可笑的。在这外表之下，是一片黑暗，它蔓延伸展，深不可测；但是，我们经常升浮到表面，正是通过那外表，你们看到了我们。她内心的领域似乎是广阔无边的。有许多她从未见识过的地方；其中有印度的平原；她觉得她正在掀开罗马一所教堂厚厚的皮革门帘。</p>
+<p>在个人独处之时，就有自由，有和平，还有那最受人欢迎的把自我的各部分聚集在一起，在一个稳固的圣坛上休息的感觉。</p>
+<p>她的目光向窗外望去，遇见了灯塔的光柱，那长长的、稳定的光柱，那三次闪光中的最后一次，那就是她的闪光。</p>
+<p>她想，如果一个人孑然独处，这个人多么倾向于无生命的事物：树木、溪流、花朵；感觉到它们表达了这个人的心意；感觉到它们变成了这个人；感觉到它们了解这个人，在某种意义上说，和这个人化为一体；感觉到一种如此骚动不安的柔情（她凝视那长长的稳定的光柱），就好像是在顾影自怜。</p>
+<p>一个人为了使自己从孤独寂寞之中解脱出来，总是要勉强抓住某种琐碎的事物，某种声音，某种景象。</p>
+<p>当夕阳的余晖褪尽，大海也失去了它的蓝色，纯粹是柠檬色的海浪滚滚而来，它翻腾起伏，拍击海岸，浪花四溅。</p>
+<p>最美好、最光明的日子，已经消逝！</p>
+<p>我虚度年华，有何收获。</p>
+<p>互相谈话、交流思想、创造气氛的全部努力。</p>
+<p>正是在这种情境之中，你会自问：一个人为什么而生活。你会自问：一个人为什么要煞费苦心组织家庭，使人类的种族得以延续？这真是如此令人向往的吗？作为一个种族，我们是有吸引力的吗？并不十分吸引人，他想，这时他望了一眼那些颇不整洁的孩子们。</p>
+<p>上床了，他猜想。愚蠢的问题，无聊的问题；如果你在专心致志地工作，你就不会提出这样的问题。人生是这样的吗？人生是那样的吗？你从来没时间去思考这些问题。但是，刚才他在这儿向自己提出了这种问题。</p>
+<p>你给眼前的痛苦浇上一些止痛的香膏。</p>
+<p>有一片涟漪，奇妙地把内外两边分隔开来：在屋里，似乎井然有序，土地干爽；在室外，映射出一片水汪汪的景象，事物在其中波动、消失。</p>
+<p>她知道威廉现在已恢复了对她的仰慕之情，现在一切都顺顺当当，她刚才的忧虑已经消除，她又可以自由自在地享受胜利的喜悦，嘲笑命运的无能，在这种感觉的鼓舞之下，她又指手划脚、谈笑风生了。莉丽想，她是多么幼稚、多么可笑：她坐在那儿，蕴藏在她体内的所有的美，又像花朵一般开放了，而她却在谈论什么菜皮。她具有某种惊人的气质。她是所向披靡、不可抗拒的。莉丽觉得，拉姆齐夫人最后总是能够随心所欲。现在她已经圆满成功了——保罗和敏泰大概已经订婚；班克斯先生正在这儿用膳。她对他们施展一种魔力，只要她心中盼望，最后总能如愿以偿。情况就是如此简单，如此直截了当。</p>
+<p>莉丽想要强烈地、坚决地表示，她渴望帮助他；她想象她自己如何在黎明时分来到沙滩上，而正是她找到了隐藏在一块石头后面的别针，这样，她就跻身于那些水手和探险者的行列之中了。但是，对于她的毛遂自荐，他如何答复呢？她确实带着难得显示的热情说：</p>
+<p>让我和你一起去找。”他却笑而不答。他的意思是同意还是不同意？——也许是不置可否。然而，他的意思还不是这个——他发出一阵奇特的笑声，似乎在说：如果你高兴从悬崖上跳下去，我也不管。他当着她的面，公然显示出爱情的热烈、可怕、冷酷、无情。它像火一般灼伤了她。</p>
+<hr>
+<p>什么话也不必说；什么话也不能说。它就在他们的周围缭绕萦回。（她仔细地帮班克斯先生挑了一块特别酥嫩的牛肉。）她觉得它带有永恒的意味；正如今天下午她曾感到过的某种东西；在一些事物之中，有某种前后一贯的稳定性；她的意思是指某种不会改变的东西，它面对着（她瞅了一眼玻璃窗上反光的涟漪）那流动的、飞逝的、光怪陆离的世界，像红宝石一般闪闪发光；因此，今晚她又感到白天经历过的那种平静和安息。她想，那种永恒持久的东西，就是由这种宁静的瞬间构成的。</p>
+<p>让我们欣赏我们自己真正欣赏的东西。</p>
+<p>现在她想起了它，丢开了闲言碎语和感情因素，它似乎一向就是如此，只是现在它被显示了出来，这就使一切都变得稳定了。</p>
+<p>我需要某种东西——我到这儿来就是为了得到它，她觉得自己潜得越来越深，但她不知道她所要的究竟是什么，她闭上了眼睛。</p>
+<p>他想要什么东西——要那个她常常难以给他的东西，要她对他说：她爱他。不，她办不到。他比她善于辞令。他能说会道——她可从来不会。因此，很自然，总是他在说话；为了某种原因，他突然会对此不满，并且指责她。他称她为没心肝的女人；她从来也不对他说一声她爱他。但事实不是如此——不是如此。只是她从来不会表达她的感情。她只会说：他的外套没粘上面包屑吗？有什么她可以为他做的事情吗。</p>
+<p>她知道他在瞅着她，她却什么也不说，只是转过身来，拿着袜子，对着他瞧。她瞧着他，开始微笑，虽然她一句话也不说，他知道，他当然知道，她爱他。他不能否认这一点。她微笑着凝视窗外说道。</p>
+<p>她自己心里在想，世界上没有可以与此相比的幸福了）——</p>
+<p>对，你说得对。明天会下雨的。你们去不成了。”她瞅着他微笑。因为她又胜利了。尽管她什么也没说，他还是明白了。</p>
+<h3 id="第二部-岁月流逝"><a href="#第二部-岁月流逝" class="headerlink" title="第二部 岁月流逝"></a>第二部 岁月流逝</h3><p>我们的忏悔只能换来短暂的一瞥；我们的勤劳只配得到片刻的休息作为报偿。</p>
+<p>当时她曾哼着这曲调轻歌曼舞，但是现在，这歌声出自这个童头齿豁的管家婆之口，已经失去了意义，就像是无知。</p>
+<p>幽默、顽强这三者本身发出的声音，它被人踩在脚下，又重新反跳起来，因此，当她跌跌撞撞地掸去灰尘、抹拭家具之时，她似乎在说：一个人的忧愁苦恼是多么长久，每天从早晨起来到夜晚上床，把东西搬出来又收进去，生活是多么机械单调。她活了将近七十年，知道这个世界并不安逸舒适。</p>
+<p>善良高奏凯歌，一派幸福气象，万物井然有序；也不可能抗拒这种极度的冲动，它到处徘徊，寻求某种绝对的善，某种强烈的结晶，它和人们熟知的快乐和德行漠不相关，它和家庭生活的程序全然不同，它是某种独一无二的、坚硬的、光芒四射的东西，就像沙砾中的一颗钻石，使它的持有者感到安心。</p>
+<p>一切，他们说，原来都充满着美好的希望。</p>
+<p>谁都难以无动于衷地对它们视而不见，抹煞它们在这片景色中的重要意义，并且在海边散步时继续惊叹外界的美如何反映了内在的美。</p>
+<p>那个梦想，孤独地在海滩上寻找人生的答案、寻找一个倩影来分享他的感情、完成他的自我的梦想，是镜子里反射出来的幻影；而镜子本身，不过是更加崇高的力量在它下面沉睡之时，在寂静中形成的一层表面化的玻璃质而已。不耐烦了，绝望了，但又不愿走开（因为美施展了诱人的魅力，提供了她的安慰）；在海滩上散步是不可能的了；沉思冥想是不堪忍受的了；那面镜子已经被打破了。</p>
+<p>这些年他们从未来过，只是给她把钱汇来，但从不捎封信来，也不回来看看；他们却盼望着将来回到这儿会发现一切都保持原状，和他们离去时一模一样。</p>
+<h3 id="第三部-灯塔"><a href="#第三部-灯塔" class="headerlink" title="第三部 灯塔"></a>第三部 灯塔</h3><p>当老麦卡力斯特转过身来把他的钓索向船外抛出去时，他大声嚷道：“我们灭亡了，”然后又接着嚷道：“各自孤独地灭亡了。</p>
+<p>在这个奇特的早晨，这些言词像其他一切东西一样，成了一种象征，涂满了那灰绿色的墙壁。她觉得，只要她能够把这些象征凑到一块儿，用一些句子把它们写出来，那末她就有可能把握住人生的真谛。</p>
+<p>到灯塔去。但把什么送到灯塔去呢？死亡。孤独。对面墙上灰绿色的幽光。那些空着的座位。这就是构成人生的一些成分，然而，怎样才能把它们凑合成整体呢？她问道。似乎任何微弱的干扰，都会把她正在餐桌上建造的脆弱的形体打个粉碎，因此，她转过身来背对着窗户，免得和拉姆齐先生的目光相遇。她必须躲到什么地方去，清静独处。</p>
+<p>她肯定能够根据回忆来模仿她在许多妇女脸上（譬如拉姆齐夫人脸上）看到过的那种激动、狂热、俯首听命的表情，当她们遇到这样的场合，她们的热情就燃烧起来（她还记得拉姆齐夫人脸上的表情），陷入一种狂热的同情，由于她们所得到的报答而万分喜悦，虽然她并不明白其中的缘故，这种报答，显然是人性可能给予她们的最高的幸福。</p>
+<p>她从生活、闲聊、交际的圈子中脱身出来，被吸引到她的这个强劲的宿敌面前——这另一个境界，这个真理，这个现实，它突然抓住了她，在各种表面现象的背后赤裸裸地显露出来，支配着她的注意力。她一半觉得不愿意，一半觉得厌恶。为什么总是被诱骗出来，被硬拉着走呢？为什么不留下来平静地和卡迈克尔先生在草坪上聊聊天呢？无论如何，这还是一种恰当的思想交流形式。</p>
+<p>人生的意义是什么？那就是全部问题所在——一个简单的问题；一个随着岁月的流逝免不了会向你逼近过来的问题。那个关于人生意义的伟大启示，从来没有出现。也许这伟大的启示永远也不会到来。作为它的代替品，在日常生活中，有一些小小的奇迹和光辉，就像在黑暗中出乎意料地突然擦亮了一根火柴，使你对于人生的真谛获得一刹那的印象。</p>
+<p>如果把这些全说了出来，不会反而把事情弄糟吗？我们如此默然相对，不是能够表达更为丰富的内容吗？至少在目前这一瞬间，似乎有着异常丰富的内涵。</p>
+<p>他们是幸福的，他们的生活就像那个样子；我是幸福的，我的生活就像这个样子。</p>
+<p>真的，他的友谊曾经是她弥足珍贵的人生乐趣之一。</p>
+<p>美有它的不利因素——它来得太轻易；它来得太完整。它使生命静止了——凝固了。它使人忘记了那些小小的内心骚动：兴奋的红晕、失望的苍白、一些奇特的变形、某种光亮或阴影；这些会使那个脸庞一下子变得认不出来，然而也给它增添了一种叫人永远不能忘怀的风姿。在美的掩盖之下，把这一切都轻轻抹去，当然更简单一些。</p>
+<p>只有当你知道你想要对别人说些什么的时候，你才去唤醒他们。她想要说的可不是一件事情，而是一切事情。三言两语只会打断思路，割裂思想，等于什么也没说。“让我们来谈谈生和死；谈谈拉姆齐夫人。”——不，她想，你和别人什么也讲不清楚。顷刻之间的紧迫感，总是难以击中目标。从嘴里吐出来的言辞向旁边飘逸，击中了靶子以下好几英寸的地方。于是你就放弃了希望，于是那没有表白出来的思想又重新沉没到心灵深处，于是你就像大多数中年人一样——谨小慎微，吞吞吐吐。</p>
+<p>那个景象，那个片断，自有它安慰人的力量。</p>
+<p>有时候离海岸很相近的灯塔，在这天早晨的朦胧雾霭中，望上去似乎距离十分遥远。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2022/12/16/%E3%80%8A%E4%B8%80%E5%8F%A5%E9%A1%B6%E4%B8%80%E4%B8%87%E5%8F%A5%E3%80%8B/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">《一句顶一万句》</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2022/09/20/%E4%B8%8D%E5%BF%98%E5%88%9D%E5%BF%83%EF%BC%8C%E7%B2%BE%E7%A5%9E%E6%97%A0%E7%95%8C/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">不忘初心，精神无界</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">《到灯塔去》</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E3%80%90%E8%8B%B1%E3%80%91%E5%BC%97%E5%90%89%E5%B0%BC%E4%BA%9A%C2%B7%E4%BC%8D%E5%B0%94%E5%A4%AB"><span class="nav-text">【英】弗吉尼亚·伍尔夫</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8-%E7%AA%97"><span class="nav-text">第一部 窗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8-%E5%B2%81%E6%9C%88%E6%B5%81%E9%80%9D"><span class="nav-text">第二部 岁月流逝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8-%E7%81%AF%E5%A1%94"><span class="nav-text">第三部 灯塔</span></a></li></ol></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">域清</a>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+    
+<script src="/js/build/libs/pangu.min.js"></script>
+
+<script src="/js/build/plugins/pangu.js"></script>
+
+
+
+
+	
+</body>
+
+</html>

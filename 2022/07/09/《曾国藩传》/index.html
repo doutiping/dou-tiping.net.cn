@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="域清">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2022/07/09/《曾国藩传》/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《曾国藩传》">
+<meta property="og:url" content="http://example.com/2022/07/09/%E3%80%8A%E6%9B%BE%E5%9B%BD%E8%97%A9%E4%BC%A0%E3%80%8B/index.html">
+<meta property="og:site_name" content="Dou tiping.net.cn">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2022-07-08T16:36:40.000Z">
+<meta property="article:modified_time" content="2025-11-17T16:42:03.086Z">
+<meta property="article:author" content="域清">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/%E7%BD%91%E5%9D%80logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/%E7%BD%91%E5%9D%80logo.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/%E7%BD%91%E5%9D%80logo.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            《曾国藩传》 | dou-tiping&#39;s blog
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":false,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":false,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":false},"single_page":true,"preloader":{"enable":true,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"static","image":{"light":"/images/1.jpg","dark":"/images/1.jpg"},"title":"dou-tiping's blog","subtitle":{"text":["This is the first message","This is the second message","etc"],"hitokoto":{"enable":true,"show_author":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":2},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"分类":{"icon":"fa-solid fa-layer-group","submenus":{"百年后的你，25岁":"/categories/百年后的你，25岁/","碎萃":"/categories/碎萃/","读书等身":"/categories/读书等身/"}},"过往":{"icon":"fa-solid fa-layer-group","submenus":{"PAP-军旅":"/categories/PAP-军旅/","BISTU-北信":"/categories/BISTU-北信/"}},"介绍":{"path":"/about","icon":"fa-regular fa-user"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"info","announcement":"按自己的意愿过好一生.","show_on_mobile":true,"links":{"时间轴":{"path":"/archives","icon":"fa-solid fa-route"},"百年后的你，25岁":{"path":"/categories/百年后的你，25岁/","icon":"fa-solid fa-earth-europe"},"碎萃":{"path":"/categories/碎萃/","icon":"fa-solid fa-seedling"},"读书等身":{"path":"/categories/读书等身/","icon":"fa-solid fa-book-open"},"PAP-军旅":{"path":"/categories/PAP-军旅/","icon":"fa-solid fa-person-rifle"},"BISTU-北信":{"path":"/categories/BISTU-北信/","icon":"fa-solid fa-universal-access"}}},"article_date_format":"auto","excerpt_length":50,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 8.0.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        dou-tiping&#39;s blog
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/%E9%80%8F%E6%98%8E%E5%BA%95logo.png" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                dou-tiping&#39;s blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-layer-group fa-fw"></i>
+                                    分类
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/">
+                                                    百年后的你，25岁
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/%E7%A2%8E%E8%90%83/">
+                                                    碎萃
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">
+                                                    读书等身
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-solid fa-layer-group fa-fw"></i>
+                                    过往
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/categories/PAP-%E5%86%9B%E6%97%85/">
+                                                    PAP-军旅
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="/categories/BISTU-%E5%8C%97%E4%BF%A1/">
+                                                    BISTU-北信
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    介绍
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-分类"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-分类">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/">百年后的你，25岁</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E7%A2%8E%E8%90%83/">碎萃</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">读书等身</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-过往"
+                        >
+                            <span>
+                                过往
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-过往">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/PAP-%E5%86%9B%E6%97%85/">PAP-军旅</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/categories/BISTU-%E5%8C%97%E4%BF%A1/">BISTU-北信</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                介绍
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/archives"
+                        >
+                            <span>时间轴</span>
+                            <i class="fa-solid fa-route fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/%E7%99%BE%E5%B9%B4%E5%90%8E%E7%9A%84%E4%BD%A0%EF%BC%8C25%E5%B2%81/"
+                        >
+                            <span>百年后的你，25岁</span>
+                            <i class="fa-solid fa-earth-europe fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/%E7%A2%8E%E8%90%83/"
+                        >
+                            <span>碎萃</span>
+                            <i class="fa-solid fa-seedling fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/"
+                        >
+                            <span>读书等身</span>
+                            <i class="fa-solid fa-book-open fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/PAP-%E5%86%9B%E6%97%85/"
+                        >
+                            <span>PAP-军旅</span>
+                            <i class="fa-solid fa-person-rifle fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories/BISTU-%E5%8C%97%E4%BF%A1/"
+                        >
+                            <span>BISTU-北信</span>
+                            <i class="fa-solid fa-universal-access fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">52</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">《曾国藩传》</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/%E4%BD%9C%E8%80%85%E5%9B%BE.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">域清</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2022-07-09 00:36:40</span>
+        <span class="mobile">2022-07-09 00:36:40</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-11-18 00:42:03</span>
+            <span class="mobile">2025-11-18 00:42:03</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AD%89%E8%BA%AB/">读书等身</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>10.5k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>35 Mins</span>
+        </span>
+    
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p><strong>张宏杰</strong> </p>
+<h3 id="第二章-为什么要“学做圣人”"><a href="#第二章-为什么要“学做圣人”" class="headerlink" title="第二章 为什么要“学做圣人”"></a>第二章 为什么要“学做圣人”</h3><p>脱胎换骨的开始：<strong>写日记</strong></p>
+<p>志向非常高远，但是怎么做到呢？曾国藩学做圣人的方法很简单，就是“写日记”。曾国藩向唐鉴请教如何自我管理。唐鉴告诉他，最关键的是每天都写日记。这是入圣之基。</p>
+<p>首先，要把写日记当成生活中的一件大事，日记要用恭楷来写，因为这样反映一种诚敬的心态。日记中规定的，就一定要做到。其次，日记的作用是“研几”，几就是细节，就是抓住生活中的细节，通过每一个细节来改变自己，而不是在细节上轻轻滑过去。一个细节上滑过，整个自我管理的工程都可能垮塌，所以在写日记时要反思一整天的活动，不光是要逐一反思自己的行为，甚至要反思检查自己大脑中转过的每一个念头。</p>
+<p>“我辈既知此学，便须努力向前，完养精神，将一切闲思维、闲应酬、闲言语扫除净尽，专心一意，钻进里面，安身立命，务要另换一个人出来，方是功夫进步，愿共勉之！”</p>
+<p>凡人作一事，便须全副精神注在此一事，首尾不懈，不可见异思迁，做这样想那样，坐这山望那山。人而无<strong>恒</strong>，终身一无所成。</p>
+<p>晚年，曾国藩总结自己的人生体会说，人的一生，就如同一个果子成熟的过程：不能着急，也不可懈怠。人的努力与天的栽培，会让一棵树静静长高，也会让一个人慢慢成熟：“勿忘勿助，看平地长得万丈高。”</p>
+<h3 id="第三章-惊人的进阶之道"><a href="#第三章-惊人的进阶之道" class="headerlink" title="第三章 惊人的进阶之道"></a>第三章 惊人的进阶之道</h3><p>（1）<strong>敬</strong>。整齐严肃，无时不慎。无事时心在腔子里，应事时专一不杂。清明在躬，如日之升。</p>
+<p>（2）<strong>静坐</strong>。每日不拘何时，静坐四刻，体验来复之仁心。正位凝命，如鼎之镇。</p>
+<p>（3）早起。黎明即起，醒后勿沾恋。</p>
+<p>（4）<strong>读书不二</strong>。一书未完，不看他书。东翻西阅，徒徇外为人。</p>
+<p>（5）<strong>读史</strong>。丙申年购《廿三史》，大人曰：“尔借钱买书，吾不惜极力为尔弥缝，尔能圈点一遍，则不负我矣。”嗣后每日圈点十叶，间断不孝。</p>
+<p>（6）<strong>谨言</strong>。刻刻留心，第一工夫。</p>
+<p>（7）<strong>养气</strong>。气藏丹田，无不可对人言之事。</p>
+<p>（8）<strong>保身</strong>。十月二十二日奉大人手谕曰：“节劳，节欲，节饮食。”时时当作养病。</p>
+<p>（9）<strong>日知所亡</strong>。每日读书记录心得语，有求深意是徇人。</p>
+<p>（10）<strong>月无忘所能</strong>。每月作诗文数首，以验积理之多寡，养气之盛否。不可一味耽着，最易溺心丧志。</p>
+<p>（11）<strong>作字</strong>。饭后作字半小时。凡笔墨应酬，当作自己功课。凡事不留待明日，愈积愈难清。</p>
+<p>（12）<strong>夜不出门</strong>。旷功疲神，切戒切戒。</p>
+<p>在与穆彰阿的交往中，虽然穆彰阿欣赏曾国藩，但曾国藩并没有因此就大喜过望，扑上去抱住穆彰阿的大腿不松手。看曾国藩的一生，与上级交往，是很注重分寸的，从不失态。他和穆彰阿交往，完全保持在正常范围内，走动并不是特别勤，所以后来穆彰阿倒台，曾国藩也没有受到牵连。这是曾国藩一生的一个重要原则。</p>
+<p>一个人的声望是晋升的重要基础。曾国藩潜心学术，热心公益，在皇帝心目中形象比较清新端正，这是他迅速升官的重要背景。</p>
+<h3 id="｜第四章｜-从前的官场愣头青"><a href="#｜第四章｜-从前的官场愣头青" class="headerlink" title="｜第四章｜　从前的官场愣头青"></a>｜第四章｜　从前的官场愣头青</h3><p>升官之后，为了督促自己继续写日记，曾国藩托纸店专印了一份日记用纸，开始写《绵绵穆穆之室日记》。这段日记体例特别，每日日记分为八栏，分别为“读书”“静坐”“属文”“作字”“办公”“课子”“对客”“回信”，每日按格填写</p>
+<p>在紧张的工作之余，曾国藩仍“手不释卷”，只不过更注重实用了。曾国藩对于“经世之务及在朝掌故”十分留意，按类别“分汇记录，凡十有八门”。据《曾国藩年谱》记载，“公每绾部务，悉取则例，博综详考，准以事理之宜。事至剖断无滞。其在工部，尤究心方舆之学，左图右书，钩校不倦，于山川险要、河漕水利诸大政详求折中”</p>
+<p>虽然致力理学，但是他并没有被理学遮蔽全部视野。他考察研究范围极广，认为“天下之大事，宜考究者凡十四宗，曰官制，曰财用，曰盐政，曰漕务，曰钱法，曰冠礼，曰昏（婚）礼，曰丧礼，曰祭礼，曰兵制，曰兵法，曰刑律，曰地舆，曰河渠”。这是他与当时诸多理学之士的明显不同之处。中国传统学术本来只讲究义理考据和辞章，他又加上经济一门。他说：“为学之术有四：曰义理，曰考据，曰辞章，曰经济。”他还认为：“文章之可传者，惟道政事，较有实际。……浅儒谓案牍之文为不古，见有登诸集者，辄鄙俗视之，不知经传固多简牍之文。……江陵盛有文藻，而其不朽者乃在筹边、论事诸牍；阳明精于理性，而其不刊者，实在告示、条约诸篇。”</p>
+<h4 id="北京，生命最艰难的时刻"><a href="#北京，生命最艰难的时刻" class="headerlink" title="北京，生命最艰难的时刻"></a>北京，生命最艰难的时刻</h4><p>在清朝的俸禄体系中，曾国藩这样的七品文官，年俸是一百二十五两白银。用购买力换算的方法，可以算出晚清一两白银的购买力，大概相当于今天的二百元人民币。因此曾国藩一年的工资大约相当于今天两万五千块钱，一个月两千零八十块钱。今天的一个京漂这点钱都不够花，曾国藩那时当然也不够花。</p>
+<p>在有关曾国藩的数据文件中，我们没有发现任何一笔营求私利的记载，但困窘的生活确实使道学家曾国藩在京官生涯中不断为利心所扰，并导致不断地自我批评。在京官时期，曾国藩立下了“不靠做官发财”的铮铮誓言</p>
+<h4 id="遭遇真正挫折：差点儿被兵痞杀了"><a href="#遭遇真正挫折：差点儿被兵痞杀了" class="headerlink" title="遭遇真正挫折：差点儿被兵痞杀了"></a>遭遇真正挫折：差点儿被兵痞杀了</h4><p>细一想，他就知道这种做法行不通。这一道奏折上去，顶多打倒一个鲍起豹，能把湖南全省官员都扳倒吗？如果扳不倒全省官员，那么以后他在湖南的处境岂不是更寸步难行？经过几夜不眠的反思，曾国藩做出了一个出人意料的决定：“好汉打脱牙和血吞。”这是一句湖南土话，好汉被人家打掉了牙，不要吐出来让别人看到，要咽到肚子里，继续战斗。他不再和长沙官场纠缠争辩，而是卷起铺盖，带着自己募来的湘军，前往僻静的衡阳。全省官员瞧不起我，我不争一日之短长。等到我在衡阳练成一支劲旅，打几个胜仗给你们看看，那时自会分出高下。这才是挽回面子的最好办法！</p>
+<h4 id="在长沙，成为众矢之的"><a href="#在长沙，成为众矢之的" class="headerlink" title="在长沙，成为众矢之的"></a>在长沙，成为众矢之的</h4><p>精于打小算盘者则视皇帝的圣旨为假公济私的好机会</p>
+<p>胃口更大者则把这个差事当成中饱私囊的绝佳机会</p>
+<p>只有曾国藩一个人，一不要钱，二不要利，只想真正为国家分忧。这就触犯了官场潜规则</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>晚清的国家军队是一支没有“天良”、没有精神力量的军队。而曾国藩建立湘军，注意给军队注入“良心”和“灵魂”。因此创立湘军之后，每逢三日、八日，他要把军队召集到操场上，进行政治动员。他亲自训话，用“杀身成仁，舍生取义”的孔孟之道和“不要钱，不怕死”的岳飞精神激励将士，教育他们忠君爱国，不得扰民。</p>
+<h3 id="｜第六章｜-湘军为什么牛气"><a href="#｜第六章｜-湘军为什么牛气" class="headerlink" title="｜第六章｜　湘军为什么牛气"></a>｜第六章｜　湘军为什么牛气</h3><p>一个汉人要跳出国家体制，自创一支军队来取代国家军队，这是大清二百年来没有过的，绝对是大逆不道的行为，实在是挑动着清代统治者最敏感的那根神经。曾国藩不是不知道这件事的风险。曾国藩为人处事表面上看起来保守，但是在根本问题上，却又有着他人所没有的巨大勇气。为了挽救朝廷，更是为了挽救他所珍视的文化传统，他决定放手一搏。</p>
+<h4 id="湘军团队是这样设计出来的"><a href="#湘军团队是这样设计出来的" class="headerlink" title="湘军团队是这样设计出来的"></a>湘军团队是这样设计出来的</h4><p>军队的“低饷制”与文官的“薄俸制”一样，都是一种非常短视的财政制度。从皇帝的视角来看，低饷薄俸为国家节省了大量财政经费，是件好事儿。但事实上这是典型的占小便宜吃大亏，让军队训练水平下降，战斗力几乎为零。曾国藩创建湘军，在制度上最引人注目的一点就是实行厚饷原则。</p>
+<p>曾国藩是一个文人，也是一个理想主义者，但是他做事是非常脚踏实地的。文人最容易犯的毛病是唱高调，但是实际上要做任何事情都首先要解决物质基础。湘军在制度上的第二个特点是“将必亲选，兵必自募”，这一创新，也是军事门外汉曾国藩殚精竭虑、集思广益的结果。</p>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><p>自古以来，生时有功德者，死后会被尊奉为神；王道治理阳间，神道治理阴间。因此即使是乱臣贼子穷凶极恶之人，也往往敬畏神明。李自成到曲阜，不敢冒犯孔庙；张献忠到梓潼，也祭祀文昌帝君。而太平军却焚毁郴州的学舍、毁坏孔子的神位，两廊屋中供奉十位哲人之处，也是遍地狼藉。自郴州起，凡他们所经过的郡县，一定先烧毁庙宇，即使是忠臣义士，像关羽、岳飞等也都被污毁了庙宇，砍掉了神像的脑袋；其他的佛寺、道院、城隍庙、土地庙，更是没有一座寺庙不被烧毁，没有一座神像不被毁灭</p>
+<h4 id="曾国藩的第一次自杀和湘潭大捷"><a href="#曾国藩的第一次自杀和湘潭大捷" class="headerlink" title="曾国藩的第一次自杀和湘潭大捷"></a>曾国藩的第一次自杀和湘潭大捷</h4><p>曾国藩后来说，如果他有时间，就会写一本“挺”经，所谓“挺”，就是指在危急时刻，能坚持住。对于这样的**“挺”字精神**，曾国藩称之为“竖起骨头，竭力撑持”。后来他专作了一副联语，作为“挺”字的注脚：“养活一团春意思，撑起两根穷骨头。”(57)重重困难之中，曾国藩不止一次想打退堂鼓。但一想起长沙之辱，他便又鼓起了全部斗志</p>
+<p>可以说，没有长沙之辱，就没有曾国藩后半生的功名事业。这一次挫而后奋的成功，给了曾国藩另一次印象极深的自我教育，更强化了他愈挫愈奋、百折不挠的性格特点。多少年后，曾国藩对他的心腹幕僚赵烈文深有感慨地说，天下事有所激有所逼而成者居多</p>
+<p>从这次经验中，曾国藩更是领悟到，对于有志者来说，挫辱是最大的动力，打击是最好的帮助。咬紧牙关，把挫辱活生生吞下，就成了滋养自己意志和决心的营养。这构成了曾国藩生命经验中最核心的部分。几十年后，他还在家书中教育儿子说：“天下事无所为而成者极少，有所贪有所利而成者居其半，有所激有所逼而成者居其半。”“百端拂逆之时……亦只有逆来顺受之法。”“所谓‘好汉打脱牙和血吞’……真处逆境之良法也。”</p>
+<p>在曾国藩创建湘军以前，中国的正规军队是没有思想政治教育这一说的，而曾国藩是一个非常重视精神力量的人。他知道，物质力量是有限度的。他说：“古来名将得士卒之心，盖有在于钱财之外者；后世将弁专恃粮重赏优，为牢笼兵心之具，其本为已浅矣。是以金多则奋勇蚁附，利尽则冷落兽散。”也就是说，真正厉害的将军，不仅要搞物质刺激，还要抓住这支军队的心灵。</p>
+<p>曾国藩并不比别人聪明，然而他做事却非常高明。曾国藩的高明，就是建立在笨拙之上，建立在绞尽脑汁、殚精竭虑之上。“笨”到极致就是“聪明”，“拙”到极点就成了“巧”。功能强大的计算机，不就是建立在最简单的只有“1”“0”两个数字的二进制基础之上的吗？</p>
+<h4 id="湘军的整体计划为何被打乱？"><a href="#湘军的整体计划为何被打乱？" class="headerlink" title="湘军的整体计划为何被打乱？"></a>湘军的整体计划为何被打乱？</h4><p>一个高明的军事家，首先应该是一个高明的战略家。所谓战略，就是基于宏观性和长远性，把各种纷繁复杂的要素按轻重缓急、先后次序进行整理排列，然后拿出最有效的行动方案。咸丰皇帝是一个没有战略眼光的人，或者说他的战略原则就是“头疼医头，脚疼医脚”。</p>
+<h3 id="｜第七章｜-得而复失的湖北巡抚"><a href="#｜第七章｜-得而复失的湖北巡抚" class="headerlink" title="｜第七章｜　得而复失的湖北巡抚"></a>｜第七章｜　得而复失的湖北巡抚</h3><p>在曾国藩看来，“失败”是一个人一生的宝贵财富，每一次失败都要吃透，才能不白白付出这个代价。自己亲自指挥的靖港战役败得如此之惨，让他感觉必须深刻反省，严厉整顿。</p>
+<h4 id="这句话改变了曾国藩命运"><a href="#这句话改变了曾国藩命运" class="headerlink" title="这句话改变了曾国藩命运"></a>这句话改变了曾国藩命运</h4><p>曾国藩高明就高明在他用制度解决了别人用道德去解决的问题。保卫长官本来是一种道德要求，但曾国藩通过制度使它变成了符合下属自身利益的一种行为。</p>
+<h4 id="曾国藩的敌人"><a href="#曾国藩的敌人" class="headerlink" title="曾国藩的敌人"></a>曾国藩的敌人</h4><p>祁寯藻平素说话非常注意分寸，然而说话小心并不是不说话，关键是说话要说到点子上。多种花少栽刺也不是说不栽刺。任何政治人物都不可能没有敌人，关键是树这个敌要值得。</p>
+<h4 id="湘军的整体计划为何被打乱？-1"><a href="#湘军的整体计划为何被打乱？-1" class="headerlink" title="湘军的整体计划为何被打乱？"></a>湘军的整体计划为何被打乱？</h4><p>曾国藩实在没想到这个皇帝这么糊涂。他曾国藩研习理学多年，最讲的就是一个“诚”字。他对朝廷的血诚，天日可表。因为一战失败，他可以投水自杀，可见他出山作战，绝不是为了自己，可是皇帝就是不能理解。</p>
+<p>曾国藩在军事上的最大长处在于他有出色的战略头脑，善于对战略环境做系统、全面的分析，从大处落墨，进行整体的战略谋划。他曾经说：“军中阅历有年，益知天下事当于大处着眼。”</p>
+<h4 id="蛰伏两年，完成“脱胎换骨”"><a href="#蛰伏两年，完成“脱胎换骨”" class="headerlink" title="蛰伏两年，完成“脱胎换骨”"></a>蛰伏两年，完成“脱胎换骨”</h4><p>古人有困而修德，穷而著书。被解除兵权，当然是人生大祸。然而祸是福之基，在灾祸中不能自暴自弃，应该置之死地而后生</p>
+<p>咸丰八年（1858）四月，曾国藩又写下了这样的自箴：矫激近名，扬人之恶，有始无终，怠慢简脱；平易近人，乐道人善，慎终如始，修节庄敬。</p>
+<p>曾国藩反思到，自己在官场上一再碰壁，碰得鼻青脸肿，不光是皇帝小心眼，大臣多私心，自己的个性、脾气、气质、风格上的诸多缺陷，也是重要原因。回想自己以前为人处世，总是怀着强烈的道德优越感，自以为居心正大，人浊我清，因此高己卑人，锋芒毕露，说话太冲，办事太直，当然容易引起他人的反感。他翻阅旧日信稿，发现了当日武昌告急时，他请求骆秉章发兵援救的一封信。写这封信时，他觉得字字有理有据，今天读来，却发现字字如锥如芒。信中称湖南湖北“唇齿利害之间，此不待智者而知也”，不仅没有一点儿商量的口气，而且还略带嘲讽之意。为了防止骆秉章干预他募练水师，他又在信中早早地表明态度：“其水路筹备一端，则听侍（曾自称）在此兴办，老前辈不必分虑及之。断不可又派员别为措置。”仍是一副舍我其谁、比谁都高明的架势。</p>
+<p>曾国藩终于认识到，行事过于方刚者，表面上似乎是强者，实际上却是弱者。这片土地上真正的强者，是表面上看起来柔弱退让之人。所谓“天下之至柔，驰骋天下之至坚”，“江海所以能为百谷王者，以其善下之”。所谓**“大柔非柔，至刚无刚”**。中国社会的潜规则是不可能一下子被扫荡的。那些他以前所看不起的虚伪、麻木、圆滑、机诈，是在这片土地上生存的必需手段。只有必要时和光同尘，圆滑柔软，才能顺利通过一个个困难的隘口。只有海纳百川，兼收并蓄，才能调动各方面的力量，达到胜利的彼岸。</p>
+<p>此前，他对人总是持有一种“众人皆醉我独醒”的心态。现在，他努力包容那些丑陋的官场生存者，设身处地地体谅他们的难处，交往时极尽拉拢抚慰之能事，必要时“啖之以厚利”。</p>
+<h4 id="湘军的战术：“结硬寨、打呆仗”"><a href="#湘军的战术：“结硬寨、打呆仗”" class="headerlink" title="湘军的战术：“结硬寨、打呆仗”"></a>湘军的战术：“结硬寨、打呆仗”</h4><p>两个人打仗，在那儿等着对方进攻的是主，主动进攻的是客。主占优势，客占劣势。所以打仗，一定要为主，而不要为客。要善于变客为主。正是因为这种“主客”思维，导致湘军采取“挖沟法”围城。曾国藩说：“守城者为主，攻城者为客。”守城的人是主，你去攻城，你就是客</p>
+<h4 id="命运之战"><a href="#命运之战" class="headerlink" title="命运之战"></a>命运之战</h4><p>古今中外，具有雄才大略的用兵者，无不能够始终从战略的高度来把握问题，能够透过暂时的纷乱看到重点，在利害交织中看清本质，牢牢把握好长远与眼前、全局与局部的关系。曾国藩始终具有强烈的全局观念，他曾经夫子自道地说：“我对于大利大害所在，都能悉心考究。”他还说，“用兵以审势为第一要义”，“‘势’则指大计大局”。还说应该从大的地方去分清界限，不要斤斤于小处去剖析微芒。这个大利大害、大计大局，就是战略重心的所在。所以湘军虽然在局部的战斗中会吃败仗，但在战略态势上却总是处于有利位置。而太平天国尽管在局部的战役上取得了一些胜利，但整个战略态势却越来越不利。这是湘军最终能够将太平天国镇压下去的重要原因之一。</p>
+<p>其实曾国藩一生做事，都没有什么特殊的地方，就是做得扎实，做得牢靠。这种作战方式，也是曾国藩独特的人生哲学和思维方式的体现。因此曾国藩打仗的第一秘诀是“稳”，先立于不败之地。军事首重“自固”，就是先要保存自我，然后才能谈到争取胜利。因为军事不比别的事情，不容许你犯错误，一犯错误，可能生命就没了，没有改正的机会。所以他才要扎硬寨，保证军队先生存下来。</p>
+<p>曾国藩一生打仗不贪小利，不求奇谋，踏踏实实，稳扎稳打。他一生不打无准备、无把握之仗。每次打仗，他都花极大心血去研究敌我双方情况、战斗的部署、后勤供应、出现不利情况如何救援等，直到每个环节都算到了，算透了，才下定打仗的决心。</p>
+<p>战略上有一条基本的原则，就是<strong>致人而不致于人</strong>，也就是要迫使对方按照自己的战略安排行动，迫使对方跟着我们的步子走，而不是按照对方的战略安排行动</p>
+<h4 id="恩将仇报的沈葆桢"><a href="#恩将仇报的沈葆桢" class="headerlink" title="恩将仇报的沈葆桢"></a>恩将仇报的沈葆桢</h4><p> 但是从经历咸丰七年（1857）被皇帝罢黜回家的大挫折后，“天命”二字开始出现在曾国藩的辞典中。仰观宇宙之大，俯察品类之盛，他悟到，人力其实是很弱小的。古今亿万年无有穷期，人生其间数十寒暑，仅须臾耳。……事变万端，美名百途，人生才力之所能办者，不过太仓之一粒耳。时间亿万年没有穷尽，人生几十年实在是一瞬即过。天下至大，人力所能为者至小。</p>
+<h3 id="｜第十一章｜-太平天国最后的战役"><a href="#｜第十一章｜-太平天国最后的战役" class="headerlink" title="｜第十一章｜　太平天国最后的战役"></a>｜第十一章｜　太平天国最后的战役</h3><p>天下无易境，天下无难境；终身有乐处，终身有忧处</p>
+<h4 id="曾国藩人生最焦灼的四十六天"><a href="#曾国藩人生最焦灼的四十六天" class="headerlink" title="曾国藩人生最焦灼的四十六天"></a>曾国藩人生最焦灼的四十六天</h4><p>他的斋名为求阙，一生勤求己过，最喜欢听别人的批评。越是位高权重，他越是主动听取逆耳之言，以克除自己身上的“意气”“客气”和“矜气”</p>
+<p>青年时代的曾国藩是“人定胜天”主义者，非常推崇意志的力量。他认为人的意志是无所不能的：“志之所向，金石为开，谁能御之？”(44)在湘军连获胜仗之际，曾国藩对自己的主观能动性相当自负</p>
+<p>他相信，太平天国何时能平，属于太大尺度的事件，不是某一个人甚至某一个集团能够决定的。在这些大事件背后，有着天时、历史、人心等诸多深层次力量在起作用，个人所能发挥的作用是很有限的。因此，他所要做的只是在可能的范围内尽自己的能力而已，而不必杞人忧天，将太多无法承受之重揽到自己肩上。他对弟弟说：“凡成大事，人谋居半，天意居半……墙壕之坚，军心之固，严断接济，痛剿援贼，此可以人谋主张者也。克城之迟速，杀贼之多寡，我军士卒之病否，良将之有无损折……此皆由天意主张者也……弟现急求克城，颇有代天主张之意……愿弟常存畏天之念，而慎静以缓图之，则善耳。”</p>
+<p>富贵功名皆人世浮荣，惟胸次浩大是真正受用</p>
+<h4 id="与左宗棠的恩怨情仇"><a href="#与左宗棠的恩怨情仇" class="headerlink" title="与左宗棠的恩怨情仇"></a>与左宗棠的恩怨情仇</h4><p>左宗棠如此对待曾国藩，可谓恩将仇报，实出乎常情常理之外。其实左宗棠一生于朋友之道不屑于用心讲求，先后绝交的朋友不止曾国藩一人。他和郭焘嵩、李鸿章、沈葆桢也无不闹翻。相比之下，曾国藩的人际交往就比左宗棠成功多了。曾国藩一生朋友如云，且其所深交，都是相当杰出的人物。曾国藩一生功业，半受朋友之助。他事业的成功，从某个角度来说，是善于用人的成功。反过来说，他更善于设身处地为他人着想，对朋友提携报答，不遗余力。</p>
+<p>失和之后，曾国藩从来没有公开说过左氏一句坏话，私下里也不怎么对人谈论他与左氏的是非短长，真的做到了“相忘于江湖”。然而，左宗棠停止不了对曾国藩的评论。许多笔记资料都记载，曾左失和之后，左宗棠每见一人，都要谈他与曾国藩关系的来龙去脉。每谈此事，则必“大骂”曾国藩。</p>
+<p>采取了如下对策：一是要求自己的亲朋好友及家人不要回击左宗棠，避免火上浇油，反而鼓励他们尽量与左宗棠搞好关系。他一再赞扬李鸿章：“阁下不与左帅争意气，远近钦企。”并说这是李进德甚猛的表现。他还嘱咐自己的儿子，不要因此与左宗棠、沈葆桢等人交恶：“余于左、沈二公之以怨报德，此中诚不能无芥蒂，然老年笃畏天命，力求克去褊心忮心。尔辈少年，尤不宜妄生意气，于二公但不通闻问而已，此外着不得丝毫意见。切记切记。” 二是对左宗棠的攻击不闻不问，不予回答。</p>
+<p>曾左晚年这最后一次交集，确实头一次感动了左宗棠。左宗棠第一次对曾国藩产生了发自内心的敬重和钦佩。这是曾左关系上的一个重要转折点。因此曾国藩去世后，身在西北前线的左宗棠派人千里迢迢送来一副谁也没有料到的挽联，其文曰：谋国之忠，知人之明，自愧不如元辅。同心若金，攻错若石，相期无负平生。 终于承认自己不如曾国藩。</p>
+<p>除了“科举情结”外，左宗棠内心还深藏着“瑜亮情结”。左宗棠平生以诸葛自命。“每与友人书，自署‘老亮’，以汉武侯自比。继又言：‘今亮或胜于古亮。’”每提起曾氏，他心中总会涌起一股难言的怨气。原因只有一个，那就是曾国藩在舞台当中占据了本来应该属于他的“主角”位置。曾国藩正是直接阻碍他成为“今亮”的罪魁祸首</p>
+<p>年来精力日颓，畏暑特甚。虽公牍最要之件，浏览不及什一辄已弃去，即贺禀谀颂之尤美者，略观数语，一笑置之。故有告以詈我之事者，亦但闻其绪，不令竟其说也</p>
+<p>曾国藩的回信不温不火，你可以说他达观，可以说他淡然，也可以说他幽默。他相信自己的拙诚终能白于天下，不必浪费精力与左宗棠争无谓之口舌。</p>
+<p>王船山说，**圣贤一定是豪杰，而豪杰不一定是圣贤。**在郭嵩焘看来，曾国藩是圣贤，而左宗棠仅止于豪杰，这就是二人的根本区别。</p>
+<h4 id="不准大排场，只收小礼物"><a href="#不准大排场，只收小礼物" class="headerlink" title="不准大排场，只收小礼物"></a>不准大排场，只收小礼物</h4><p>成为地方大吏后，曾国藩还遇到另一个无法回避的重要问题，那就是如何处理礼品。身在官场，你想从始至终片礼不沾是不可能的。因为官员送礼，送的不光是钱，还是人情。你一点儿不收，就显得你“不近人情”，这不符合曾国藩“和光同尘”的作风，也不利于他与下属建立基本的情感联系。所以在实在拒绝不了的情况下，他会从下属送来的礼物中挑一两样价值最轻的收下来。</p>
+<h4 id="曾国藩的“小金库”"><a href="#曾国藩的“小金库”" class="headerlink" title="曾国藩的“小金库”"></a>曾国藩的“小金库”</h4><p>综观曾国藩一生，他的为官风格十分独特。一方面，曾国藩确实是一个清官。他的“清”货真价实，问心无愧。在现存资料中，我们找不到曾国藩把任何一分公款装入自己腰包的记录。但另一方面，曾国藩的逸事中缺少“囊橐萧然”“贫不能殓”、在官府里种菜吃这样容易让人觉得悲情的极端化情节。在中国人眼里，真正的清官，必须清可见底，一尘不染，清到成为海瑞式的“自虐狂”或者“受虐狂”，才叫人佩服。曾国藩远没有清到这个程度。如果给清官分类的话，曾国藩应该归入“非典型类清官”。也就是说，骨子里清廉刻苦，表面上和光同尘。这是因为曾国藩的志向不是做“清官”，而是做大事。</p>
+<p>曾国藩有意取海瑞一尘不染之实，却竭力避免一清如水之名。他的选择，远比做清官更复杂更沉重。因此，他才具有大力量，才能成就大事业</p>
+<h4 id="蛮夷之人，居然也有信义"><a href="#蛮夷之人，居然也有信义" class="headerlink" title="蛮夷之人，居然也有信义"></a>蛮夷之人，居然也有信义</h4><p>这次战争更让曾国藩发现，这些洋人不光是武器与中国历史上的那些蛮族不同，他们的行为方式体现出的文明水平也完全不同。历史上的那些蛮族如果攻占了中国京城，通常会建立一个新的王朝。而这些洋人却并不这样。他们虽然野蛮地焚烧和抢劫，但只是烧了皇帝的别墅，也就是没有太多政治含义的圆明园，而对于清王朝统治权威的象征紫禁城及太庙、天坛等地，却没有动。这当然不是随机的选择，而是有明确的含义。这说明，洋人并不想推翻清王朝，他们所志，一是通商，二是要清王朝放下高高在上的架子，以平等的态度和他们交往。</p>
+<p>后来曾国藩又看到，西洋各国协助中国管理税关，廉明有效，收到的税款居然比清朝收到的多两倍甚至三倍：“即令沪、镇、浔、汉凡有领事官之处，皆我国令管关者，一体稽查，一体呈验，正税，子税，较我厘金之科则业已倍之三之，在彼固自谓仁至义尽矣。” 这些事情，让曾国藩认识到，这些洋人，不同于中国历史上传统的没有文化根基的蛮夷。他们有自己的独特信仰、文化系统和做事原则。从此曾国藩对西方国家的态度发生了重大转变</p>
+<h4 id="师夷长技以制夷"><a href="#师夷长技以制夷" class="headerlink" title="师夷长技以制夷"></a>师夷长技以制夷</h4><p>在深入研究外情的基础上，曾国藩将“师夷长技以制夷”的思路深化并升级。第一次鸦片战争之后，曾国藩就已经开始了“师夷长技”的过程。早在创办湘军水师之初，曾国藩就非“夷炮”不用，水师非船炮齐备不出，最后终以重金派专人从广东购来大量洋炮，并克服重重困难把它安装在炮船上，很快将千里长江控制在湘军手中。</p>
+<p>第二次鸦片战争之后，他认识到，“师夷智”不能停留在购买使用西式武器阶段，而必须深入学习研究西式武器背后的秘密，也就是进入学习掌握西方科学和技术阶段。只有把这些秘密掌握在自己手里，才有与洋人平起平坐乃至战而胜之的可能。而曾国藩没有想到的是外国人居然肯主动给中国提供这样的机会。按照传统的东方式思维，军事科技是洋人的命根子，洋人肯定会视若珍宝，绝不外泄。但是洋人却愿意以贸易等方式，向中国出售最先进的武器，并且倾囊教授使用之法，这令曾国藩大感意外和兴奋。</p>
+<p>曾国藩一直把制造轮船与“自强之道”联系起来，可见他致力于军事工业，不是为了平定太平军和捻军之类的内部敌人，而是为了对付洋人。这条船比日本横须贺造船厂建造的第一艘明轮蒸汽机兵船“清辉”号要早十二年。曾国藩为官历来谨慎，但是在洋务运动上，他却不怕有越权的嫌疑，经常鼓动各省积极兴办西式工业</p>
+<h3 id="三个与众不同的外交观念"><a href="#三个与众不同的外交观念" class="headerlink" title="三个与众不同的外交观念"></a>三个与众不同的外交观念</h3><p>中国古人的狭隘观念是只有中国人是人，或者说，是“完全的人”，文明的人，其他族类，皆介于人与兽之间。“夷狄异类，近于禽兽。”“夫戎狄者，四方之异气也。蹲夷踞肆，与鸟兽无别。” 因此，中国人和外国人，当然先天就是不平等的。所以任何外国人，到了中国，都应该进贡称臣。见了中国皇帝，都必须三跪九叩。</p>
+<p>曾国藩认为，不用智商特别高就会明白，你不可能强迫一个比你强大的人给你下跪。“普天之下，莫非王土，率土之滨，莫非王臣”的无知狂妄应该被打破了。很明显，我们无法再按藩属之礼要求洋人，和他们只能行“敌国之礼”，即平等之礼。这是符合近代交往规则的。“中外既已通好，彼此往来，亦属常事。”“不绳以礼法，不待以藩属，徒见朝廷之大方，未必有损于国体。” 今天绝大部分中国人应该会认同曾国藩的观点，然而在当时，敢于提出这些看法是需要勇气的，搞不好会很容易被骂为汉奸。</p>
+<p>因为中国人历来处理外交，并不以“诚信”，而以“羁縻”。什么叫羁縻呢？“羁，马络头也。縻，牛缰也。”也就是说，是一种对付牲畜的工具。《史记》说：“盖闻天子之于夷狄也，其义羁縻勿绝而已。”“羁縻之道”的出发点是蛮夷非我族类，因此跟他们是讲不了道理的，只能以权宜、权术来笼络糊弄：“裔不谋夏，夷不乱华。荒忽之人，羁縻而已。”(41) 因此鸦片战争以来，清朝君臣对付外国人的手段，一直是“羁縻”，或者说糊弄。</p>
+<p>更令曾国藩意外的，是外国人在结束战争之后，立刻提出，可以帮助清王朝镇压国内太平天国，并且迅速付诸行动</p>
+<p>后来曾国藩说，外国人“不伤毁我宗庙社稷，目下在上海、宁波等处助我攻剿发匪”，“二者皆有德于我，我中国不宜忘此大者而怨其小者”。</p>
+<p>外国人管理中国政府事务，这当然是西方侵犯中国主权的一个铁证。但是清朝政府在这件事情上并非完全出于被动</p>
+<p>外国人将七十多万关税交给清朝政府，这一举动让曾国藩大为意外。想不到蛮夷之人，居然也有信义。起码此举可称为君子之行</p>
+<p>在当时地方督抚中，曾国藩是对兴办近代工业最感兴趣，也是最为努力的一人。湘军攻下安庆不久，他就建立了“安庆内军械所”，集中了中国当时最出色的几位科学技术人员，专门仿造西洋式的枪炮弹药，并把试制轮船作为军械所的一项重要任务。第二年，徐寿、华蘅芳就造成了一台轮船用蒸汽机</p>
+<p>为了更深入更全面地掌握西方技术，曾国藩和李鸿章等人又建设了一个更大的兵工厂—江南制造局。今天中国最大的造船企业之一上海江南造船厂，就是由当年江南制造局的江南造船所发展而来的。</p>
+<p>经过第一次鸦片战争，中国人的唯我独尊意识仍然没有丝毫撼动。大清臣民拒绝履行这一条约。割地赔款都履行得很痛快，但是偏要在这个细节上抵抗外国人，就是不让你进城，就是不想承认你和我们是平等的。这样才能发泄我们心中积累的郁闷。所以当英国人提出要到广州城内居住时，广州民情汹汹，群起反对，掀起所谓“反入城斗争”，无论如何也不让外国人进城住。朝廷对此也坚决支持，导致外国人迟迟不能进城。</p>
+<h4 id="曾国藩的人才大计：塑造李鸿章"><a href="#曾国藩的人才大计：塑造李鸿章" class="headerlink" title="曾国藩的人才大计：塑造李鸿章"></a>曾国藩的人才大计：塑造李鸿章</h4><p>和孔子一样，曾国藩内心深处很热爱这个教师工作，甚至比做官还要热爱。曾国藩曾说过“君子有三乐”，其中之一便是“宏奖人才，诱人日进”(30)。也和孔子一样，曾国藩长于“因人施教”，针对不同的人采取不同的教育方法。</p>
+<p>人们提起曾国藩，一般认为他一生做了两件大事：平定太平天国和兴起洋务运动。其实除此之外，曾国藩一生致力的还有一件大事，那就是培养人才</p>
+<p>曾国藩对李鸿章这块美玉之才确实是精心训导，尽力雕琢，进行了全方位改造。李鸿章爱睡懒觉，曾国藩让他养成了每日早起的习惯；李鸿章平时好说谎吹牛（合肥俗语“打痞子腔”），在曾国藩面前他从来不敢造次；李鸿章心思太灵，遇事容易动摇，曾国藩经常对他讲“挺”经，教导他遇到困难要挺得住。在曾国藩幕府中，李鸿章方方面面都发生着变化。吴汝纶记述他：“公少受学曾公，其用兵方略，为国决大计，虚荣悴显晦，事成败不易常度，得于曾公者为多。”</p>
+<p>在京期间，曾国藩曾经教李鸿章作文。在幕府中，曾国藩又曾教李鸿章做人。现在，他又给李鸿章上了第三课，建军。这是曾国藩教授李鸿章的最重要的一堂课</p>
+<p>李鸿章文笔优长，身上却没有一丝文人所常有的那种书卷气。他天生善于并喜欢处理复杂局面。别人怕事，他则喜事。局面越乱，责任越重，他越高兴。</p>
+<h4 id="曾国藩调查“挖眼剜心”事件"><a href="#曾国藩调查“挖眼剜心”事件" class="headerlink" title="曾国藩调查“挖眼剜心”事件"></a>曾国藩调查“挖眼剜心”事件</h4><p>余生平略涉儒先之书，见圣贤教人修身，千言万语，而要以不忮不求为重。忮者，嫉贤害能，妒功争宠，所谓怠者不能修，忌者畏人修之类也。求者，贪利贪名，怀土怀惠，所谓未得患得，既得患失之类也。忮不常见，每发露于名业相侔、势位相埒之人；求不常见，每发露于货财相接、仕进相妨之际。将欲造福，先去忮心，所谓人能充无欲害人之心，则仁不可胜用也。将欲立品，先去求心，所谓人能充无穿窬之心，而义不可胜用也。忮不去，满怀皆是荆棘；求不去，满腔日即卑污。余于此二者常加克治，恨尚未能扫除净尽。尔等欲心地干净，宜于此二者下功夫，并愿子孙世世戒之。</p>
+<h4 id="虽油尽灯枯，仍然勤奋有恒"><a href="#虽油尽灯枯，仍然勤奋有恒" class="headerlink" title="虽油尽灯枯，仍然勤奋有恒"></a>虽油尽灯枯，仍然勤奋有恒</h4><p>二月初三日，去世的前一天。曾国藩留下了最后一篇日记，全文如下：早起，蒋、萧两大令来诊脉，良久去。早饭后，清理文件，阅理学宗传。围棋二局。至上房一坐。又阅理学宗传。中饭后阅本日文件。李绂生来一坐。屡次小睡。核科房批稿簿。傍夕久睡。又有手颤心摇之象。起吃点心后，又在洋床久睡。阅理学宗传中张子一卷。二更四点睡。 </p>
+<h4 id="中国传统文化的最后一个偶像"><a href="#中国传统文化的最后一个偶像" class="headerlink" title="中国传统文化的最后一个偶像"></a>中国传统文化的最后一个偶像</h4><p>当天晚上赵烈文一夜未眠，涕泪不断。日记说：夜卧通夕不寐，思念畴昔，涕泪盈把。俗话说身边人眼中无伟人，但是他回顾曾国藩一生，却说：闻涤师……扶至签押房坐定，倚椅背一笑而逝，其来去自如，非天人中人，不能吉祥如此。在世则已为完人，出世则几入圣，果人生若是，尚复何憾。</p>
+<p>就在儒家精神世界崩溃的前夜，曾国藩这个最后的精神偶像出现了，好像是儒学这位长寿老人临死前的一次回光返照。传统的人格之美集中在曾国藩身上，在风雨飘摇的末世做一次告别演出式的呈现，绚烂而又凄婉。立功、立德、立言，曾国藩全做到了。就立功而言，他从一介书生起家，创建军队，统率群雄，挽狂澜于既倒，扶大厦之将倾，使中国传统文化免遭彻底毁灭的命运，使清王朝的生命又延续了六十年，其功不可谓不大。就立德而言，他时时以圣贤标准要求自己，道德修养近乎纯粹，五十年后相继主宰了中国的两个大人物—蒋介石和毛泽东，也不约而同地把他当作过自己的精神偶像。说到立言，他作为中国最后一个大儒，对理学身体力行，登堂入室，造诣很深。留下了洋洋数百万言的全集，其精深博大之处可以让学者终生沉浮其中。</p>
+<p>虽然感慨“补救无术，日暮道穷”，但最终落脚点还是在“且愤且乐，死而后已”。曾国藩毕竟是一个坚忍到底的人。他知道，王朝命数之类的事，是上天做主的，自己不必代为做主。自己能做的，只是尽自己的人事。在生命的尽头，他用尽全力，又在洋务上做了一件大事，那就是奏请派出第一批官费留美学生，推动这个古老而多灾多难的国家向前走了一步。</p>
+
+		</div>
+
+		
+
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2022/07/10/%E3%80%8A%E4%B8%80%E9%97%B4%E5%8F%AA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E6%88%BF%E9%97%B4%E3%80%8B/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">《一间只属于自己的房间》</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2022/07/08/%E8%87%AA%E5%BE%8B%E8%80%85%E6%9C%80%E8%87%AA%E7%94%B1/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">自律者最自由</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">《曾国藩传》</div>
+		<ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E2%80%9C%E5%AD%A6%E5%81%9A%E5%9C%A3%E4%BA%BA%E2%80%9D"><span class="nav-text">第二章 为什么要“学做圣人”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%83%8A%E4%BA%BA%E7%9A%84%E8%BF%9B%E9%98%B6%E4%B9%8B%E9%81%93"><span class="nav-text">第三章 惊人的进阶之道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BD%9C%E7%AC%AC%E5%9B%9B%E7%AB%A0%EF%BD%9C-%E4%BB%8E%E5%89%8D%E7%9A%84%E5%AE%98%E5%9C%BA%E6%84%A3%E5%A4%B4%E9%9D%92"><span class="nav-text">｜第四章｜　从前的官场愣头青</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BD%9C%E7%AC%AC%E5%85%AD%E7%AB%A0%EF%BD%9C-%E6%B9%98%E5%86%9B%E4%B8%BA%E4%BB%80%E4%B9%88%E7%89%9B%E6%B0%94"><span class="nav-text">｜第六章｜　湘军为什么牛气</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BD%9C%E7%AC%AC%E4%B8%83%E7%AB%A0%EF%BD%9C-%E5%BE%97%E8%80%8C%E5%A4%8D%E5%A4%B1%E7%9A%84%E6%B9%96%E5%8C%97%E5%B7%A1%E6%8A%9A"><span class="nav-text">｜第七章｜　得而复失的湖北巡抚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BD%9C%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%EF%BD%9C-%E5%A4%AA%E5%B9%B3%E5%A4%A9%E5%9B%BD%E6%9C%80%E5%90%8E%E7%9A%84%E6%88%98%E5%BD%B9"><span class="nav-text">｜第十一章｜　太平天国最后的战役</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%AA%E4%B8%8E%E4%BC%97%E4%B8%8D%E5%90%8C%E7%9A%84%E5%A4%96%E4%BA%A4%E8%A7%82%E5%BF%B5"><span class="nav-text">三个与众不同的外交观念</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">域清</a>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+    
+<script src="/js/build/libs/pangu.min.js"></script>
+
+<script src="/js/build/plugins/pangu.js"></script>
+
+
+
+
+	
+</body>
+
+</html>
